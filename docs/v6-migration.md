@@ -46,7 +46,7 @@ migration for the changes as of v6.5.1.
 :::tip New Options Keys
 
 You can grab the new
-[`config.template.js`](https://raw.githubusercontent.com/cross-seed/cross-seed/master/src/config.template.cjs)
+[`config.template.js`](https://raw.githubusercontent.com/cross-seed/cross-seed/v6.13.6/src/config.template.cjs)
 and simply go through and migrate your missing options over to your current
 `config.js`. Alternatively, you can add them yourself by referencing our
 documentation.
@@ -465,7 +465,7 @@ behind-the-scenes updates made to improve `cross-seed`.
   data-based searches) will result in fewer "bad" searches that would otherwise
   yield no viable results.
 - New recommended defaults in
-  [`config.template.js`](https://raw.githubusercontent.com/cross-seed/cross-seed/master/src/config.template.cjs).
+  [`config.template.js`](https://raw.githubusercontent.com/cross-seed/cross-seed/v6.13.6/src/config.template.cjs).
   These settings are what we consider to be the best starting options when
   setting up `cross-seed`.
 

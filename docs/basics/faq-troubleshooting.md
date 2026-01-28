@@ -19,7 +19,7 @@ If you are updating from version 5.x to version 6.x, you can visit the
   high-performing set of default settings that should work well for users and
   trackers alike. If your configuration predates v6, consider adjusting your
   settings to match the
-  [defaults](https://github.com/cross-seed/cross-seed/blob/master/src/config.template.cjs).
+  [defaults](https://raw.githubusercontent.com/cross-seed/cross-seed/v6.13.6/src/config.template.cjs).
 
 ### Windows Paths
 
