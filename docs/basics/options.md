@@ -182,6 +182,12 @@ sonarr: ["https://sonarr/?apikey=12345"],
 sonarr: ["http://sonarr:8989/?apikey=12345","http://sonarr4k:8990/?apikey=12345"],
 ```
 
+:::warning NOTICE
+
+If you are using a secure connection (HTTPS) to Sonarr and you are using a certificate signed by a custom authority, make sure that the environment variable [`NODE_EXTRA_CA_CERTS`](https://nodejs.org/api/cli.html#node_extra_ca_certsfile) is set and contains the path to a file containing the root certificate of the custom authority.
+
+:::
+
 ### `radarr`
 
 | Config File Name | CLI Short Form | CLI Long Form       | Format     | Config Default | Fallback |
@@ -217,6 +223,12 @@ radarr: ["https://radarr/?apikey=12345"],
 
 radarr: ["http://radarr:7878/?apikey=12345","https://radarr4k:7879/?apikey=12345"],
 ```
+
+:::warning NOTICE
+
+If you are using a secure connection (HTTPS) to Radarr and you are using a certificate signed by a custom authority, make sure that the environment variable [`NODE_EXTRA_CA_CERTS`](https://nodejs.org/api/cli.html#node_extra_ca_certsfile) is set and contains the path to a file containing the root certificate of the custom authority.
+
+:::
 
 ### `useClientTorrents`
 
