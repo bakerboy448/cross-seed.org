@@ -39,6 +39,17 @@ all. `cross-seed` uses the
 [`fuzzySizeThreshold`](../basics/options.md#fuzzysizethreshold) to set a minimum
 size for partial matches (default 0.02, allowing up to 2% size variance).
 
+:::warning
+
+`partial` does not mean the source torrent in your client can be skipped,
+missing, or incomplete. The matched source files must exist and be readable.
+Partial matching allows the target torrent to have extra or different small
+files. If you skipped `.nfo`, sample files, or episodes in the source torrent,
+you may still see `Linking failed ... not found` or an injected torrent that
+rechecks below 100%.
+
+:::
+
 If a partial match is found, cross-seed will:
 
 1. Inject the torrent with the matched files.
@@ -49,8 +60,8 @@ If a partial match is found, cross-seed will:
 
 :::info Note
 
-Nearly all partial matches will have the existing files at 99.9% instead of
-100% after rechecking. This is expected and is due to how torrent piece hashing
+Nearly all partial matches will have the existing files at 99.9% instead of 100%
+after rechecking. This is expected and is due to how torrent piece hashing
 works.
 
 :::

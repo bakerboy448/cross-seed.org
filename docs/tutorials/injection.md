@@ -18,8 +18,8 @@ automation external to `cross-seed`.
 :::danger Permissions
 
 `cross-seed` must share the same
-[user and group](../basics/getting-started.mdx#with-docker) permissions as the
-torrent clients to prevent errors.
+[user and group](../basics/getting-started.mdx#docker-installation) permissions
+as the torrent clients to prevent errors.
 
 :::
 

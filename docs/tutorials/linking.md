@@ -77,6 +77,15 @@ fail.
 All paths need to be accessible in the same structure as your torrent client for
 injection to succeed.
 
+:::tip
+
+If your injected torrents show `0%`, `missing files`, or logs such as
+`Linking failed ... not found`, work through
+[Common Setup Failures](../basics/common-setup-failures.md#docker-paths-and-mounts)
+before changing matching settings.
+
+:::
+
 ### Configuring [`linkDirs`](../basics/options.md#linkdirs)
 
 :::tip
@@ -143,6 +152,8 @@ module.exports = {
 	linkDirs: ["/data/torrents/SomeLinkDirName"],
 };
 ```
+
+[**See the Docker path examples and diagnostics.**](../basics/common-setup-failures.md#docker-paths-and-mounts)
 
 :::
 

@@ -50,7 +50,9 @@ npm install -g cross-seed
 ### Windows installation
 
 **Use [npm installation](#native-installation-with-npm)** if your torrent client
-is running on Windows. Do not use Docker.
+is running on Windows. Do not use Docker if you want linking, partial matching,
+or data-based matching. See the [Windows quickstart](./windows.md) for a full
+Windows setup.
 
 ### Unraid installation
 
@@ -234,8 +236,8 @@ cross-seed daemon --verbose
 Regardless of the `--verbose` flag, `cross-seed` will also always log the
 verbose output to `<your cross-seed config dir>/logs/verbose.current.log`.
 
-Some common errors are also listed in the
-[FAQ and Troubleshooting page](./faq-troubleshooting).
+For common errors, see [Common Setup Failures](./common-setup-failures.md) and
+[FAQ and Troubleshooting](./faq-troubleshooting.md) pages.
 
 ---
 
@@ -246,6 +248,8 @@ get the most out of `cross-seed`:
 
 - [**Managing the daemon**](./managing-the-daemon) with Docker or systemd for
   long-term use.
+- [**Common setup failures**](./common-setup-failures.md) for Docker paths,
+  hardlinks, Torznab URLs, networking, permissions, and recovery.
 - [**Setting up partial matches**](../tutorials/partial-matching) to increase
   your seed size even more (at the cost of downloading a few extra NFO files).
 - [**Setting up ID-based searching**](../tutorials/id-searching) for better

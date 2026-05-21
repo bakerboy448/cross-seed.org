@@ -79,7 +79,21 @@ Use snatched torrents from the torrent_cache to attempt to restore cross seeds.
 You will need to run `cross-seed inject` afterwards with dataDirs configured.
 
 This can be helpful if you have lost your torrent client session information but
-still have the downloaded data.
+still have the downloaded data, are migrating machines, or need to recreate
+missing cross-links after a crash.
+
+Typical recovery flow:
+
+1. Stop `cross-seed`.
+2. Make a backup of the config directory.
+3. Confirm the torrent client can see the existing data.
+4. Run `cross-seed restore`.
+5. Run `cross-seed inject`.
+6. Start the daemon again.
+
+If you added trackers or changed exclude settings, do not delete caches. Restart
+the daemon and let `cross-seed` re-evaluate. To force an early search, use
+`/api/job` with `ignoreExcludeRecentSearch=true` or `ignoreExcludeOlder=true`.
 
 #### Usage
 

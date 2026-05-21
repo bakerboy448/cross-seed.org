@@ -57,6 +57,10 @@ are found under the `Show more settings` dropdown at the bottom of the template.
 | Path (Optional) | torrentDir | /torrents    | /path/to/torrent/client/session/dir | Read Only   |
 | Path (Optional) | outputDir  | /cross-seeds | /path/to/output/dir                 | Read/Write  |
 
+Leaving an optional host path empty can create Docker errors such as
+`invalid spec: :/cross-seeds:rw`. Remove optional mappings you are not using, or
+fill in a real host path.
+
 :::
 
 ::::
@@ -109,3 +113,14 @@ permissions. Double-check that your appdata/config folder has the proper
 permissions for user:group `99:100`
 
 :::
+
+:::caution Remote seedboxes
+
+For linking, `cross-seed` generally needs access to the same data paths as the
+torrent client. A local Unraid container usually cannot link data that exists
+only on a remote seedbox.
+
+:::
+
+For common mount, path, and permission failures, see
+[Common Setup Failures](../basics/common-setup-failures.md).

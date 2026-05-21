@@ -118,12 +118,19 @@ For [Prowlarr](https://github.com/Prowlarr/Prowlarr) and
 [Jackett](https://github.com/Jackett/Jackett) you can simply copy the **RSS
 URL** from the WebUI.
 
+For Prowlarr, the URL should include the indexer ID before `/api`, for example
+`http://prowlarr:9696/1/api?apikey=12345`. The base Prowlarr API URL
+`http://prowlarr:9696/api?apikey=12345` is not a Torznab endpoint and will
+usually cause invalid XML or JSON parsing errors.
+
 :::note
 
 This works because in Torznab, "RSS feeds" are just a search for the first page
 of unfiltered (no search query) results from the indexer.
 
 :::
+
+[See correct and wrong Torznab URL examples.](./common-setup-failures.md#torznab-and-prowlarr-urls)
 
 #### `torznab` Examples (CLI)
 
@@ -184,7 +191,12 @@ sonarr: ["http://sonarr:8989/?apikey=12345","http://sonarr4k:8990/?apikey=12345"
 
 :::warning NOTICE
 
-If you are using a secure connection (HTTPS) to Sonarr and you are using a certificate signed by a custom authority, make sure that the environment variable [`NODE_EXTRA_CA_CERTS`](https://nodejs.org/api/cli.html#node_extra_ca_certsfile) is set and contains the path to a file containing the root certificate of the custom authority.
+If you are using a secure connection (HTTPS) to Sonarr and you are using a
+certificate signed by a custom authority, make sure that the environment
+variable
+[`NODE_EXTRA_CA_CERTS`](https://nodejs.org/api/cli.html#node_extra_ca_certsfile)
+is set and contains the path to a file containing the root certificate of the
+custom authority.
 
 :::
 
@@ -226,7 +238,12 @@ radarr: ["http://radarr:7878/?apikey=12345","https://radarr4k:7879/?apikey=12345
 
 :::warning NOTICE
 
-If you are using a secure connection (HTTPS) to Radarr and you are using a certificate signed by a custom authority, make sure that the environment variable [`NODE_EXTRA_CA_CERTS`](https://nodejs.org/api/cli.html#node_extra_ca_certsfile) is set and contains the path to a file containing the root certificate of the custom authority.
+If you are using a secure connection (HTTPS) to Radarr and you are using a
+certificate signed by a custom authority, make sure that the environment
+variable
+[`NODE_EXTRA_CA_CERTS`](https://nodejs.org/api/cli.html#node_extra_ca_certsfile)
+is set and contains the path to a file containing the root certificate of the
+custom authority.
 
 :::
 
@@ -839,6 +856,10 @@ details on the implementation's changes.
 Set this to `true` to include torrents that contain a majority of files other
 than video files (`.mp4`, `.avi`, `.mkv`) in the search.
 
+For games and other non-video releases, set this to `true`. Expect lower match
+quality than movies or TV because folder layouts, extras, patches, and release
+names vary more across trackers.
+
 #### `includeNonVideos` Examples (CLI)
 
 ```shell
@@ -1032,8 +1053,8 @@ prefix to use a client to source cross seeds from but not inject into.
 [**You may need to urlencode your username and password if they contain special characters**](./faq-troubleshooting.md#can-i-use-special-characters-in-my-urls)
 
 `cross-seed` must share the same
-[user and group](./getting-started.mdx#with-docker) permissions as the torrent
-clients to prevent errors.
+[user and group](./getting-started.mdx#docker-installation) permissions as the
+torrent clients to prevent errors.
 
 **You may need to use
 [`cross-seed clear-client-cache`](../reference/utils.md#cross-seed-clear-client-cache)
@@ -1316,6 +1337,11 @@ set it to a valid key (24 character min).
 To find your generated API key, run the `cross-seed api-key` command. The API
 key can be included with your requests in either of two ways:
 
+If `apiKey` is unset in `config.js`, `cross-seed` uses its generated key. If you
+set `apiKey` yourself, that configured value is the active key after restart.
+When in doubt, run `cross-seed api-key` in the same environment where the daemon
+runs, such as inside the Docker container.
+
 ```shell
 # provide api key as a query param
 curl -XPOST localhost:2468/api/webhook?apikey=YOUR_API_KEY --data-urlencode ...
@@ -1532,6 +1558,13 @@ list of supported prefixes are:
   (case-insensitive).
 - `sizeBelow:` Blocklist searchees with a size in bytes below this number.
 - `sizeAbove:` Blocklist searchees with a size in bytes above this number.
+
+`category:` matches the category or label reported by your torrent client.
+`tag:` matches the tag or label reported by your torrent client. Blocklist rules
+are evaluated when `cross-seed` builds the candidate set for search, webhook,
+inject, RSS, and announce jobs. If another automation changes categories or tags
+at nearly the same time, the result depends on what the client reports when
+`cross-seed` reads that torrent.
 
 :::danger
 

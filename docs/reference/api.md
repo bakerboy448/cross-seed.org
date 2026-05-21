@@ -28,6 +28,10 @@ curl -XPOST localhost:2468/api/webhook?apikey=YOUR_API_KEY --data-urlencode ...
 curl -XPOST localhost:2468/api/webhook -H "X-Api-Key: YOUR_API_KEY" --data-urlencode ...
 ```
 
+If `cross-seed` runs in Docker, run `cross-seed api-key` inside that container
+or use the same config directory as the daemon. If `apiKey` is explicitly set in
+`config.js`, restart the daemon and use that configured key.
+
 ## GET `/api/ping`
 
 This endpoint will respond with `200 OK` if the daemon is running. There is no
@@ -38,6 +42,11 @@ authorization on this endpoint.
 ```shell script
 curl http://localhost:2468/api/ping
 ```
+
+Use this endpoint first when debugging Docker, VPN, or webhook networking. It
+does not require authentication, so a failed ping means the request cannot reach
+the daemon. See
+[Docker networking and webhooks](../basics/common-setup-failures.md#docker-networking-and-webhooks).
 
 ## POST `/api/webhook`
 

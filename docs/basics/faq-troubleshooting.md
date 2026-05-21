@@ -1,7 +1,7 @@
 ---
 id: faq-troubleshooting
 title: FAQ & Troubleshooting
-sidebar_position: 4
+sidebar_position: 5
 ---
 
 ### Updating to cross-seed v6
@@ -14,6 +14,9 @@ If you are updating from version 5.x to version 6.x, you can visit the
 - The log files in `cross-seed`'s `logs` folder—specifically `verbose.*.log`—are
   your friend. If you experience undesired results from `cross-seed`, look to
   these files first for indicators of why `cross-seed` performed the way it did.
+- If you are debugging Docker paths, hardlinks, Torznab URLs, webhooks,
+  permissions, or recovery, start with
+  [Common Setup Failures](./common-setup-failures.md).
 - In the past, `cross-seed` has been less opinionated about what settings work
   well. After a few years of experimentation, we have settled on a
   high-performing set of default settings that should work well for users and
@@ -32,6 +35,8 @@ outputDir: "C:\\My Data\\.cross-seed",
 linkDirs: ["C:\\My Data\\Downloads\\MyLinkDir"],
 dataDirs: ["C:\\My Data\\Downloads\\Movies"],
 ```
+
+For a full native Windows setup, see the [Windows quickstart](./windows.md).
 
 ### Where is the config directory for `cross-seed`?
 
@@ -127,6 +132,27 @@ cross seeds is fine though.
 
 You can always safely remove the torrent while keeping its data, but you will
 need a method to clean up the orphaned data if it exists.
+
+`cross-seed` does not manage ratio, delete torrents for cleanup, or decide when
+tracker rules let you remove data.
+
+### Is cross-seed a torrent management tool?
+
+No. `cross-seed` finds cross-seed matches, links data when configured, and
+injects matching torrents into your client.
+
+It does not:
+
+- Delete torrents for ratio management.
+- Decide when it is safe to reclaim media-folder space.
+- Replace qbit_manage, qBit Manage, or other cleanup tools.
+- Manage tracker rules for minimum seed time or ratio.
+- Clean orphaned linked data after you delete torrents.
+
+For safer deletion behavior, use
+[`hardlinks or reflinks`](./options.md#linktype) with
+[`flatLinking: false`](./options.md#flatlinking), then verify cleanup in your
+torrent-management tool.
 
 ### Is there a way to trigger a specific cross-seed job ahead of schedule?
 
@@ -430,8 +456,11 @@ visibility, this is preventable.
 
 If you see injected torrents show up with a `missing files` error, it is likely
 due to incorrect paths/mounts/volumes or permissions (`cross-seed` must have the
-same [user and group](./getting-started.mdx#with-docker) as your torrent
+same [user and group](./getting-started.mdx#docker-installation) as your torrent
 clients). The logs from qBittorrent will usually state the specific reason.
+
+For Docker examples and commands to verify the paths inside the container, see
+[Docker paths and mounts](./common-setup-failures.md#docker-paths-and-mounts).
 
 ### I'm getting errors in cross-seed on hostingby.design seedbox
 
@@ -467,7 +496,7 @@ Even with API authentication, we still recommend that you **do not expose
 
 :::
 
-If you are using [Docker](./getting-started#with-docker), you cannot use
+If you are using [Docker](./getting-started#docker-installation), you cannot use
 `localhost` as an address to communicate across containers. Consider using your
 host's local IP address (usually a 192 or 10 address) or the container name (if
 using a "Custom Docker Network").
@@ -489,6 +518,9 @@ announcements are made via the `/announce` API endpoint and are snatched during
 matching or for injection.
 
 :::
+
+For webhook-specific examples, `/api/ping` tests, and common `curl` errors, see
+[Docker networking and webhooks](./common-setup-failures.md#docker-networking-and-webhooks).
 
 ### Searching media libraries vs. torrent data (data-based searching)
 

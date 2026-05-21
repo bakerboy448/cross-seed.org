@@ -68,6 +68,17 @@ http://cross-seed:2468
 
 We will refer to this as `<BASE_URL>` below.
 
+:::tip Docker and VPN networking
+
+The base URL depends on where the webhook command runs. From another container
+on the same Docker network, use `http://cross-seed:2468`. From the Docker host,
+use `http://localhost:2468` if the port is published. From another LAN machine,
+use the host's LAN IP. Test the route with `curl <BASE_URL>/api/ping` first.
+
+[See the Docker networking troubleshooting table.](../basics/common-setup-failures.md#docker-networking-and-webhooks)
+
+:::
+
 ### Setting Up Your Torrent Client
 
 There are likely two versions of webhook command you want to use, depending if
